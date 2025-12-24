@@ -1,36 +1,93 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Het is maar haar
 
-## Getting Started
+A minimal, brand-focused landing page for freelance hairdresser 'Het is maar haar'.
 
-First, run the development server:
+The site features:
+
+- a custom animated “hair-like” background built in ThreeJS
+- a centered logo and primary call-to-action
+- a booking modal (UI only, booking flow coming later)
+- a bottom widget bar with Instagram, location, and contact links
+
+Built as a single-page experience with a strong visual identity and mobile-first layout.
+
+---
+
+## Tech Stack
+
+- **Next.js (App Router)**
+- **React**
+- **Tailwind CSS**
+- **@react-three/fiber + drei** for the animated background
+- Deployed-ready for **Vercel**
+
+---
+
+## Getting Started (Local Development)
+
+### 1. Install dependencies
+
+```bash
+npm install
+```
+
+(or `yarn`, `pnpm`, or `bun` if you prefer)
+
+### 2. Start the development server
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 3. Open in your browser
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```
+http://localhost:3000
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+The app will hot-reload as you edit files.
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+## Project Structure (Key Files)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```txt
+app/
+  page.tsx              # Main landing page
+components/
+  FluidBackground.tsx   # Animated background
+  BookingModal.tsx      # Booking modal UI
+  WidgetBar.tsx         # Bottom action bar
+public/
+  logo.png              # Brand logo
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
+## Styling & Design Notes
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- Styling is done entirely with **Tailwind CSS**
+- Colors are based on a fixed pastel palette
+- UI elements are intentionally flat (no heavy shadows or blur)
+- The background animation is purely decorative and runs independently of UI
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+
+## Deployment
+
+The project is ready to deploy on **Vercel**.
+
+From the Vercel dashboard:
+
+- Import the GitHub repository
+- No special configuration required
+- Default build settings work out of the box
+
+---
+
+## Roadmap / Future Improvements
+
+- Integrate a real booking system
+- Add opening hours
+- SEO + metadata pass
+- Optional CMS for content updates
