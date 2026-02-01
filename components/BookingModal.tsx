@@ -1,9 +1,31 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 
 export default function BookingModal() {
   const [open, setOpen] = useState(false)
+  const mountRef = useRef<HTMLDivElement | null>(null)
+
+  useEffect(() => {
+    if (!open) return
+
+    const root = mountRef.current
+    if (!root) return
+
+    root.innerHTML = ""
+
+    const script = document.createElement("script")
+    script.src = "https://embed.youcanbook.me"
+    script.async = true
+    script.setAttribute("data-domain", "hetismaarhaar")
+    script.setAttribute("data-content", "schedule")
+
+    root.appendChild(script)
+
+    return () => {
+      root.innerHTML = ""
+    }
+  }, [open])
 
   useEffect(() => {
     if (!open) return
@@ -18,7 +40,7 @@ export default function BookingModal() {
     <>
       <button
         onClick={() => setOpen(true)}
-        className="mt-6 rounded-full bg-[#b188d3] px-6 py-3 text-sm font-semibold text-white transition hover:scale-[1.03] active:scale-[0.98]"
+        className="mt-6 rounded-full bg-[#ffffff] px-6 py-3 text-sm font-semibold text-[#b188d3] transition hover:scale-[1.03] active:scale-[0.98]"
       >
         Afspraak maken
       </button>
@@ -53,7 +75,11 @@ export default function BookingModal() {
               </button>
             </div>
 
-            <div className="px-6 pb-6 text-sm text-white/80">Binnenkort: boekingsflow.</div>
+            <div className="px-6 pb-6">
+              <div className="w-full overflow-hidden rounded-2xl bg-white">
+                <div ref={mountRef} className="min-h-130 w-full" />
+              </div>
+            </div>
           </div>
         </div>
       </div>

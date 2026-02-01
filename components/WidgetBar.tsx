@@ -18,7 +18,7 @@ export default function WidgetBar({
           href={instagramUrl}
           target="_blank"
           rel="noreferrer"
-          className="rounded-full bg-[#b188d3] px-5 py-2 text-xs font-semibold text-white transition hover:scale-[1.03] active:scale-[0.98]"
+          className="rounded-full bg-[#ffffff] px-5 py-2 text-xs font-semibold text-[#b188d3] transition hover:scale-[1.03] active:scale-[0.98]"
         >
           Instagram
         </a>
@@ -27,14 +27,14 @@ export default function WidgetBar({
           href={mapsUrl}
           target="_blank"
           rel="noreferrer"
-          className="rounded-full bg-[#b188d3] px-5 py-2 text-xs font-semibold text-white transition hover:scale-[1.03] active:scale-[0.98]"
+          className="rounded-full bg-[#ffffff] px-5 py-2 text-xs font-semibold text-[#b188d3] transition hover:scale-[1.03] active:scale-[0.98]"
         >
           Locatie
         </a>
 
         <a
           href={`tel:${phone.replace(/\s/g, "")}`}
-          className="rounded-full bg-[#b188d3] px-5 py-2 text-xs font-semibold text-white transition hover:scale-[1.03] active:scale-[0.98]"
+          className="rounded-full bg-[#ffffff] px-5 py-2 text-xs font-semibold text-[#b188d3] transition hover:scale-[1.03] active:scale-[0.98]"
         >
           Contact
         </a>
