@@ -1,0 +1,70 @@
+:root {
+  --magenta: #d34cf5;
+  --blue: #0000ff;
+  --blue-soft: #6969ff;
+  --teal: #1eaea7;
+  --teal-light: #76e6e1;
+  --teal-pale: #7ed7d2;
+  --cyan: #5ce1e6;
+  --aqua: #57d0d4;
+  --pink: #ff9dc0;
+  --maroon: #812c2c;
+  --deep-teal: #006f73;
+
+  --font-display: "MuseoModerno", system-ui, sans-serif;
+  --font-mono: "Azeret Mono", ui-monospace, monospace;
+  --font-serif: "Fraunces Variable", Georgia, serif;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  background: var(--magenta);
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-weight: 500;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+p,
+ul {
+  margin: 0;
+  padding: 0;
+}
+
+ul {
+  list-style: none;
+}
+
+a {
+  color: inherit;
+}
+
+.lines > span {
+  display: block;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}

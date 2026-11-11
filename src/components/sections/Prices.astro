@@ -1,0 +1,115 @@
+---
+import Stage from "../Stage.astro";
+import Layer from "../Layer.astro";
+import { place } from "../place";
+import { site } from "../../data/site";
+
+import sea from "../../assets/prices/sea.webp";
+import marshmallows from "../../assets/prices/marshmallows.webp";
+import fishSurface from "../../assets/prices/fish-surface.webp";
+import reef from "../../assets/prices/reef.webp";
+import angelfish from "../../assets/prices/angelfish.webp";
+import jellyfish from "../../assets/prices/jellyfish.webp";
+import dolphins from "../../assets/prices/dolphins.webp";
+import jellyCoral from "../../assets/prices/jelly-coral.webp";
+import turtle from "../../assets/prices/turtle.webp";
+import fishSchool from "../../assets/prices/fish-school.webp";
+import seahorse from "../../assets/prices/seahorse.webp";
+import starfish from "../../assets/prices/starfish.webp";
+
+const { prices } = site;
+---
+
+<Stage id="prices" aria-labelledby="prices-title">
+  <Layer src={sea} x={0} y={0} w={1} />
+  <Layer src={marshmallows} x={0.0429} y={0.0794} w={0.2254} />
+  <Layer src={fishSurface} x={0.776} y={0.0996} w={0.1857} />
+  <Layer src={reef} x={0.2211} y={0.3796} w={0.253} />
+  <Layer src={angelfish} x={0.6616} y={0.1652} w={0.1804} />
+  <Layer src={jellyfish} x={0.7821} y={0.7219} w={0.2179} />
+  <Layer src={dolphins} x={0.0032} y={0} w={0.3097} />
+  <Layer src={jellyCoral} x={0} y={0.7213} w={0.1325} />
+  <Layer src={turtle} x={0.0854} y={0.3417} w={0.2186} />
+  <Layer src={fishSchool} x={0.6549} y={0.4187} w={0.214} />
+  <Layer src={seahorse} x={0.7821} y={0.5} w={0.2094} />
+  <Layer src={starfish} x={0.3016} y={0.1311} w={0.3788} />
+
+  <hgroup class="at heading" style={place(0.4151, 0.1309, 0.1463, 0.1389)}>
+    <h2 id="prices-title">{prices.title}</h2>
+    <p class="subtitle">{prices.subtitle}</p>
+  </hgroup>
+
+  <ul class="at tiers" style={place(0.4236, 0.4188, 0.1292, 0.1784)}>
+    {
+      prices.tiers.map(({ tier, amount }) => (
+        <li>
+          {tier} - {amount} euro
+        </li>
+      ))
+    }
+  </ul>
+
+  <p class="at extra" style={place(0.6923, 0.8054, 0.2625, 0.0502)}>{prices.extra}</p>
+
+  <p class="at principle lines" style={place(0.0316, 0.7106, 0.2664, 0.1449)}>
+    {prices.principle.map((line) => <span>{line}</span>)}
+  </p>
+</Stage>
+
+<style>
+  .heading,
+  .tiers,
+  .extra,
+  .principle {
+    font-family: var(--font-serif);
+    font-weight: 900;
+    font-variation-settings: "SOFT" 100, "WONK" 0;
+    color: var(--cyan);
+    white-space: nowrap;
+  }
+
+  .heading {
+    display: grid;
+    align-content: center;
+    text-align: center;
+  }
+
+  .heading h2 {
+    font: inherit;
+    font-size: 3.87cqi;
+    line-height: 5.34cqi;
+    text-shadow: 0.21cqi 0.21cqi 0 var(--maroon);
+  }
+
+  .subtitle {
+    font-size: 2.21cqi;
+    line-height: 1.2;
+    text-shadow: 0.12cqi 0.12cqi 0 var(--maroon);
+  }
+
+  .tiers {
+    display: grid;
+    align-content: center;
+    font-size: 2.56cqi;
+    line-height: 3.51cqi;
+    -webkit-text-stroke: 0.38cqi var(--deep-teal);
+    paint-order: stroke fill;
+  }
+
+  .extra {
+    display: grid;
+    align-content: center;
+    font-size: 2.36cqi;
+    line-height: 1;
+    text-shadow: 0.13cqi 0.13cqi 0 var(--maroon);
+  }
+
+  .principle {
+    display: grid;
+    align-content: center;
+    text-align: center;
+    font-size: 2.08cqi;
+    line-height: 2.86cqi;
+    text-shadow: 0.11cqi 0.11cqi 0 var(--maroon);
+  }
+</style>

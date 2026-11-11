@@ -1,0 +1,16 @@
+---
+import Base from "../layouts/Base.astro";
+import Home from "../components/sections/Home.astro";
+import Portfolio from "../components/sections/Portfolio.astro";
+import Prices from "../components/sections/Prices.astro";
+import { site } from "../data/site";
+---
+
+<Base title={site.title} description={site.description}>
+  <main>
+    <Home />
+    <Portfolio />
+    <Prices />
+  </main>
+</Base>
+

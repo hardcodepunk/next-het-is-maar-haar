@@ -1,0 +1,28 @@
+---
+import type { HTMLAttributes } from "astro/types";
+
+type Props = HTMLAttributes<"section"> & {
+  background?: string;
+};
+
+const { background, class: className, ...rest } = Astro.props;
+---
+
+<section class:list={["stage", className]} style={background ? { background } : undefined} {...rest}>
+  <slot />
+</section>
+
+<style>
+  .stage {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1411 / 793;
+    overflow: hidden;
+    container-type: inline-size;
+    background: var(--magenta);
+  }
+
+  .stage :global(.at) {
+    position: absolute;
+  }
+</style>

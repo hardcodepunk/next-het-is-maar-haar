@@ -1,0 +1,24 @@
+---
+import type { Link } from "../data/site";
+
+interface Props {
+  link: Link;
+  class?: string;
+}
+
+const { link, class: className } = Astro.props;
+---
+
+{
+  link.href ? (
+    <a
+      href={link.href}
+      class={className}
+      {...(link.external ? { target: "_blank", rel: "noreferrer" } : {})}
+    >
+      {link.label}
+    </a>
+  ) : (
+    <span class={className}>{link.label}</span>
+  )
+}

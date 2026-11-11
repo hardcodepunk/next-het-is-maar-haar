@@ -1,0 +1,155 @@
+---
+import Stage from "../Stage.astro";
+import Layer from "../Layer.astro";
+import LinkOrText from "../LinkOrText.astro";
+import { place } from "../place";
+import { site } from "../../data/site";
+
+import glowHeartBlue from "../../assets/home/glow-heart-blue.webp";
+import glowHeartPink from "../../assets/home/glow-heart-pink.webp";
+import hairclips from "../../assets/home/hairclips.webp";
+import butterflies from "../../assets/home/butterflies.webp";
+import flipPhone from "../../assets/home/flip-phone.webp";
+import heroHeart from "../../assets/home/hero-heart.webp";
+import smallHeart from "../../assets/home/small-heart.webp";
+import youAreAStar from "../../assets/home/you-are-a-star.webp";
+
+const indents = [0, 7, 0, 5, 0];
+---
+
+<Stage id="home" aria-label="Home">
+  <Layer src={glowHeartBlue} x={0.1637} y={0.0385} w={0.6421} priority />
+  <Layer src={glowHeartPink} x={0.2279} y={0.111} w={0.5443} priority />
+  <Layer src={hairclips} x={0.0411} y={0.1047} w={0.141} />
+  <Layer src={butterflies} x={0.8689} y={0.4861} w={0.1293} />
+  <Layer src={flipPhone} x={0.0595} y={0.6406} w={0.1067} />
+  <Layer src={heroHeart} x={0.3388} y={0.2736} w={0.3228} alt="Smiling client with freshly cut hair" priority />
+
+  <h1 class="at title" style={place(0.2027, 0.0488, 0.5947, 0.1148)}>{site.title.toUpperCase()}</h1>
+
+  <nav class="at nav" style={place(0.8193, 0.1786, 0.1622, 0.4619)} aria-label="Main">
+    <ul>
+      {
+        site.nav.map((link, i) => (
+          <li style={{ paddingLeft: `${indents[i] ?? 0}ch` }}>
+            <LinkOrText link={link} />
+          </li>
+        ))
+      }
+      <li class="about" style={{ paddingLeft: "2ch" }}>
+        <LinkOrText link={site.about} />
+      </li>
+    </ul>
+  </nav>
+
+  <Layer src={smallHeart} x={0.0645} y={0.4439} w={0.1286} alt="Client laughing during a haircut" />
+
+  <p class="at community lines" style={place(0.5535, 0.8424, 0.4098, 0.0987)}>
+    {site.community.map((line) => <span>{line}</span>)}
+  </p>
+
+  <p class="at tagline" style={place(0.3103, 0.2738, 0.3794, 0.0467)}>
+    {site.tagline}<span class="asterisk">*</span>
+  </p>
+
+  <div class="at contact" style={place(0.1423, 0.6305, 0.1121, 0.1807)}>
+    <h2 class="contact-title">{site.contactTitle}</h2>
+    <ul>
+      {
+        site.contact.map((link) => (
+          <li>
+            <LinkOrText link={link} />
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+
+  <Layer src={youAreAStar} x={0.0712} y={0.0555} w={0.1123} alt="You are a star" />
+</Stage>
+
+<style>
+  .title {
+    display: grid;
+    place-items: center;
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 5.4cqi;
+    line-height: 1;
+    white-space: nowrap;
+    color: transparent;
+    -webkit-text-stroke: 0.2cqi var(--teal);
+    text-shadow: 0.24cqi 0.24cqi 0 var(--teal-pale);
+  }
+
+  .nav {
+    font-size: 1.92cqi;
+    line-height: 2.64cqi;
+    color: var(--blue);
+    text-shadow: 0 0.07cqi 0.26cqi rgb(0 0 0 / 0.27);
+    white-space: nowrap;
+  }
+
+  .about {
+    margin-top: 2.64cqi;
+  }
+
+  .nav :global(a),
+  .contact :global(a) {
+    text-decoration: none;
+  }
+
+  .nav :global(a:hover),
+  .nav :global(a:focus-visible),
+  .contact :global(a:hover),
+  .contact :global(a:focus-visible),
+  .about :global(:is(a, span)) {
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+  }
+
+  .tagline {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2.25cqi;
+    line-height: 1;
+    white-space: nowrap;
+    color: var(--blue);
+    text-shadow:
+      0.01cqi 0.007cqi 0 #ff00ff,
+      -0.01cqi -0.007cqi 0 #00ffff;
+  }
+
+  .asterisk {
+    color: var(--teal);
+  }
+
+  .contact {
+    display: grid;
+    align-content: center;
+    text-align: center;
+    font-size: 1.92cqi;
+    line-height: 2.64cqi;
+    color: var(--blue-soft);
+    filter: drop-shadow(0 0 0.03cqi rgb(0 0 255 / 0.95)) drop-shadow(0 0 0.16cqi rgb(0 0 255 / 0.75))
+      drop-shadow(0 0 0.48cqi rgb(0 0 255 / 0.44));
+  }
+
+  .contact-title {
+    font: inherit;
+  }
+
+
+  .community {
+    display: grid;
+    align-content: center;
+    text-align: center;
+    font-size: 1.41cqi;
+    line-height: 1.94cqi;
+    white-space: nowrap;
+    color: var(--teal-light);
+    filter: drop-shadow(0 0 0.023cqi rgb(4 182 173 / 0.95)) drop-shadow(0 0 0.12cqi rgb(25 182 174 / 0.75))
+      drop-shadow(0 0 0.35cqi rgb(25 182 174 / 0.44));
+  }
+</style>
