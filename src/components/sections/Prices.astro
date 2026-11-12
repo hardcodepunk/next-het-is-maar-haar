@@ -20,26 +20,26 @@ import starfish from "../../assets/prices/starfish.webp";
 const { prices } = site;
 ---
 
-<Stage id="prices" aria-labelledby="prices-title">
-  <Layer src={sea} x={0} y={0} w={1} />
-  <Layer src={marshmallows} x={0.0429} y={0.0794} w={0.2254} />
-  <Layer src={fishSurface} x={0.776} y={0.0996} w={0.1857} />
-  <Layer src={reef} x={0.2211} y={0.3796} w={0.253} />
-  <Layer src={angelfish} x={0.6616} y={0.1652} w={0.1804} />
-  <Layer src={jellyfish} x={0.7821} y={0.7219} w={0.2179} />
-  <Layer src={dolphins} x={0.0032} y={0} w={0.3097} />
-  <Layer src={jellyCoral} x={0} y={0.7213} w={0.1325} />
-  <Layer src={turtle} x={0.0854} y={0.3417} w={0.2186} />
-  <Layer src={fishSchool} x={0.6549} y={0.4187} w={0.214} />
-  <Layer src={seahorse} x={0.7821} y={0.5} w={0.2094} />
-  <Layer src={starfish} x={0.3016} y={0.1311} w={0.3788} />
+<Stage id="prices" aria-labelledby="prices-title" mobileRatio={0.56} bg={site.backgrounds.prices}>
+  <Layer src={sea} x={0} y={0} w={1} m="cover" sizes="(max-width: 759.98px) 180vw, 100vw" class="sea" />
+  <Layer src={marshmallows} x={0.0429} y={0.0794} w={0.2254} m="hide" />
+  <Layer src={fishSurface} x={0.776} y={0.0996} w={0.1857} m="hide" />
+  <Layer src={reef} x={0.2211} y={0.3796} w={0.253} m="hide" />
+  <Layer src={angelfish} x={0.6616} y={0.1652} w={0.1804} m={[0.6, 0.05, 0.4]} />
+  <Layer src={jellyfish} x={0.7821} y={0.7219} w={0.2179} m="hide" />
+  <Layer src={dolphins} x={0.0032} y={0} w={0.3097} m={[-0.02, 0.005, 0.6]} />
+  <Layer src={jellyCoral} x={0} y={0.7213} w={0.1325} m="hide" />
+  <Layer src={turtle} x={0.0854} y={0.3417} w={0.2186} m={[-0.04, 0.8, 0.4]} />
+  <Layer src={fishSchool} x={0.6549} y={0.4187} w={0.214} m="hide" />
+  <Layer src={seahorse} x={0.7821} y={0.5} w={0.2094} m={[0.7, 0.74, 0.3]} />
+  <Layer src={starfish} x={0.3016} y={0.1311} w={0.3788} m={[0.06, 0.205, 0.88]} />
 
-  <hgroup class="at heading" style={place(0.4151, 0.1309, 0.1463, 0.1389)}>
+  <hgroup class="at heading" style={place([0.4151, 0.1309, 0.1463, 0.1389], [0.15, 0.115, 0.7, 0.1])}>
     <h2 id="prices-title">{prices.title}</h2>
     <p class="subtitle">{prices.subtitle}</p>
   </hgroup>
 
-  <ul class="at tiers" style={place(0.4236, 0.4188, 0.1292, 0.1784)}>
+  <ul class="at tiers" style={place([0.4236, 0.4188, 0.1292, 0.1784], [0.25, 0.37, 0.5, 0.15])}>
     {
       prices.tiers.map(({ tier, amount }) => (
         <li>
@@ -49,14 +49,21 @@ const { prices } = site;
     }
   </ul>
 
-  <p class="at extra" style={place(0.6923, 0.8054, 0.2625, 0.0502)}>{prices.extra}</p>
+  <p class="at extra" style={place([0.6923, 0.8054, 0.2625, 0.0502], [0.05, 0.79, 0.9, 0.045])}>
+    {prices.extra}
+  </p>
 
-  <p class="at principle lines" style={place(0.0316, 0.7106, 0.2664, 0.1449)}>
+  <p class="at principle lines" style={place([0.0316, 0.7106, 0.2664, 0.1449], [0.05, 0.68, 0.9, 0.1])}>
     {prices.principle.map((line) => <span>{line}</span>)}
   </p>
 </Stage>
 
 <style>
+  :global(.sea) {
+    -webkit-mask: linear-gradient(transparent, #000 18%);
+    mask: linear-gradient(transparent, #000 18%);
+  }
+
   .heading,
   .tiers,
   .extra,
@@ -111,5 +118,37 @@ const { prices } = site;
     font-size: 2.08cqi;
     line-height: 2.86cqi;
     text-shadow: 0.11cqi 0.11cqi 0 var(--maroon);
+  }
+
+  @media (max-width: 759.98px) {
+    .heading h2 {
+      font-size: 10cqi;
+      line-height: 12cqi;
+      text-shadow: 0.5cqi 0.5cqi 0 var(--maroon);
+    }
+
+    .subtitle {
+      font-size: 5.4cqi;
+      text-shadow: 0.3cqi 0.3cqi 0 var(--maroon);
+    }
+
+    .tiers {
+      justify-items: center;
+      font-size: 6.2cqi;
+      line-height: 8.4cqi;
+      -webkit-text-stroke-width: 0.9cqi;
+    }
+
+    .extra {
+      justify-items: center;
+      font-size: 5.4cqi;
+      text-shadow: 0.3cqi 0.3cqi 0 var(--maroon);
+    }
+
+    .principle {
+      font-size: 5.4cqi;
+      line-height: 7cqi;
+      text-shadow: 0.3cqi 0.3cqi 0 var(--maroon);
+    }
   }
 </style>

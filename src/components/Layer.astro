@@ -1,36 +1,40 @@
 ---
 import type { ImageMetadata } from "astro";
 import { Image } from "astro:assets";
+import { MOBILE_QUERY, place, type Box } from "./place";
 
 interface Props {
   src: ImageMetadata;
   x: number;
   y: number;
   w: number;
+  m?: Box | "hide" | "cover";
+  sizes?: string;
   alt?: string;
   priority?: boolean;
   class?: string;
 }
 
-const { src, x, y, w, alt = "", priority = false, class: className } = Astro.props;
+const { src, x, y, w, m, sizes, alt = "", priority = false, class: className } = Astro.props;
 
 const widths = [...new Set([0.25, 0.5, 0.75, 1].map((f) => Math.round(src.width * f)))];
+const mobileWidth = Array.isArray(m) ? m[2] : m === "cover" ? 1 : w;
+const defaultSizes = `${MOBILE_QUERY} ${(mobileWidth * 100).toFixed(1)}vw, ${(w * 100).toFixed(1)}vw`;
 ---
 
 <Image
   src={src}
   alt={alt}
   widths={widths}
-  sizes={`${(w * 100).toFixed(1)}vw`}
+  sizes={sizes ?? defaultSizes}
   loading={priority ? "eager" : "lazy"}
   fetchpriority={priority ? "high" : "auto"}
-  class:list={["at", "layer", className]}
-  style={{ left: `${x * 100}%`, top: `${y * 100}%`, width: `${w * 100}%` }}
+  class:list={["at", "layer", m === "hide" && "m-hide", m === "cover" && "m-cover", className]}
+  style={place([x, y, w], Array.isArray(m) ? m : undefined)}
 />
 
 <style>
   .layer {
-    height: auto;
     pointer-events: none;
     user-select: none;
   }

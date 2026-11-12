@@ -1,0 +1,80 @@
+---
+import { Image } from "astro:assets";
+import { frames } from "../data/frames";
+import type { PortfolioItem } from "../data/site";
+
+interface Props {
+  item: PortfolioItem;
+  sizes: string;
+  class?: string;
+  style?: Record<string, string | number>;
+}
+
+const { item, sizes, class: className, style } = Astro.props;
+const frame = frames[item.frame];
+const { x, y, w, h } = frame.window;
+const position = item.position ?? "50% 50%";
+const pct = (v: number) => `${+(v * 100).toFixed(3)}%`;
+const photoWidths = [400, 640, 960, 1280].filter((n) => n <= item.photo.width);
+const frameWidths = [320, 560, 800].filter((n) => n <= frame.image.width);
+---
+
+<figure
+  class:list={["framed", className]}
+  style={{ ...style, "--ar": `${frame.image.width} / ${frame.image.height}` }}
+>
+  <div
+    class="window"
+    style={{
+      left: pct(x),
+      top: pct(y),
+      width: pct(w),
+      height: pct(h),
+      "--mask": `url("${frame.mask.src}")`,
+    }}
+  >
+    <Image
+      src={item.photo}
+      alt={item.alt}
+      widths={photoWidths}
+      sizes={sizes}
+      loading="lazy"
+      class="photo"
+      style={{ objectPosition: position, transformOrigin: position, scale: item.zoom ?? 1 }}
+    />
+  </div>
+  <Image src={frame.image} alt="" widths={frameWidths} sizes={sizes} loading="lazy" class="frame" />
+</figure>
+
+<style>
+  .framed {
+    margin: 0;
+    aspect-ratio: var(--ar);
+  }
+
+  .framed:not(:global(.at)) {
+    position: relative;
+  }
+
+  .window {
+    position: absolute;
+    overflow: hidden;
+    -webkit-mask: var(--mask) center / 100% 100% no-repeat;
+    mask: var(--mask) center / 100% 100% no-repeat;
+  }
+
+  .photo {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .frame {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+  }
+</style>
