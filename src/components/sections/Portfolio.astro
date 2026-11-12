@@ -1,63 +1,85 @@
 ---
+import { getImage } from "astro:assets";
 import Stage from "../Stage.astro";
 import Layer from "../Layer.astro";
-import { place } from "../place";
+import Framed from "../Framed.astro";
+import { place, MOBILE_QUERY, type Box } from "../place";
 import { site } from "../../data/site";
 
 import starsALeft from "../../assets/portfolio/stars-a-left.webp";
 import starsARight from "../../assets/portfolio/stars-a-right.webp";
-import frameStreet from "../../assets/portfolio/frame-street.webp";
-import frameFlowers from "../../assets/portfolio/frame-flowers.webp";
-import frameStars from "../../assets/portfolio/frame-stars.webp";
-import frameSmileys from "../../assets/portfolio/frame-smileys.webp";
-import frameLaugh from "../../assets/portfolio/frame-laugh.webp";
 import clouds from "../../assets/portfolio/clouds.webp";
 import rainbow from "../../assets/portfolio/rainbow.webp";
-
 import starsBLeft from "../../assets/portfolio/stars-b-left.webp";
-import frameFruit from "../../assets/portfolio/frame-fruit.webp";
 import starsBRight from "../../assets/portfolio/stars-b-right.webp";
-import frameCreateArt from "../../assets/portfolio/frame-create-art.webp";
-import framePinkBlob from "../../assets/portfolio/frame-pink-blob.webp";
-import frameBlueBlob from "../../assets/portfolio/frame-blue-blob.webp";
-import frameHearts from "../../assets/portfolio/frame-hearts.webp";
-import frameTropical from "../../assets/portfolio/frame-tropical.webp";
 
-const alt = "Portfolio haircut";
+const desktopSlots: Box[] = [
+  [0.098, 0.136, 0.256],
+  [0.414, 0.1775, 0.214],
+  [0.707, 0.0815, 0.185],
+  [0.16, 0.344, 0.197],
+  [0.726, 0.3365, 0.234],
+  [0.121, 0.562, 0.232],
+  [0.409, 0.562, 0.258],
+  [0.736, 0.55, 0.188],
+  [0.075, 0.75, 0.163],
+  [0.306, 0.776, 0.194],
+  [0.569, 0.797, 0.196],
+];
+
+const tilts = ["-3deg", "2deg", "-1.5deg", "3deg", "-2.5deg", "1.5deg"];
+
+const starPattern = await getImage({ src: starsBLeft, width: 800, format: "webp" });
 ---
 
-<Stage id="portfolio" aria-labelledby="portfolio-title">
-  <Layer src={starsALeft} x={0} y={0} w={0.3565} />
-  <Layer src={starsARight} x={0.8444} y={0.0687} w={0.1556} />
-  <Layer src={frameStreet} x={0.4135} y={0.355} w={0.2144} alt={alt} />
-  <Layer src={frameFlowers} x={0.0978} y={0.2711} w={0.2562} alt={alt} />
-  <Layer src={frameStars} x={0.7069} y={0.162} w={0.185} alt={alt} />
-  <Layer src={frameSmileys} x={0.7264} y={0.6728} w={0.2346} alt={alt} />
-  <Layer src={frameLaugh} x={0.1598} y={0.6873} w={0.1967} alt={alt} />
-  <Layer src={clouds} x={0.4103} y={0.0511} w={0.1627} />
-  <Layer src={rainbow} x={0} y={0} w={0.2509} />
+<Stage id="portfolio" aria-labelledby="portfolio-title" ratio={1411 / 1586} bg={site.backgrounds.portfolio}>
+  <Layer src={starsALeft} x={0} y={0} w={0.3565} m="hide" />
+  <Layer src={starsBLeft} x={0} y={0.51575} w={0.5588} m="hide" />
+  <Layer src={starsBRight} x={0.6517} y={0.5397} w={0.3203} m="hide" />
 
-  <h2 id="portfolio-title" class="at heading" style={place(0.4165, 0.1073, 0.1671, 0.0591)}>
-    {site.portfolio.title}
-  </h2>
+  <div class="head">
+    <Layer src={starsARight} x={0.8444} y={0.03435} w={0.1556} m={[0.82, 0.02, 0.15]} />
+    <Layer src={clouds} x={0.4103} y={0.02555} w={0.1627} m={[0.25, 0.36, 0.5]} />
+    <Layer src={rainbow} x={0} y={0} w={0.2509} m={[0, 0, 0.66]} />
 
-  <p class="at motto lines" style={place(0.0298, 0.0377, 0.1694, 0.1302, -10.55)}>
-    {site.portfolio.motto.map((line) => <span>{line}</span>)}
-  </p>
-</Stage>
+    <h2
+      id="portfolio-title"
+      class="at heading"
+      style={place([0.4165, 0.05365, 0.1671, 0.02955], [0.25, 0.494, 0.5, 0.14])}
+    >
+      {site.portfolio.title}
+    </h2>
 
-<Stage aria-label="More portfolio">
-  <Layer src={starsBLeft} x={0} y={0.0315} w={0.5588} />
-  <Layer src={frameFruit} x={0.4089} y={0.1255} w={0.258} alt={alt} />
-  <Layer src={starsBRight} x={0.6517} y={0.0794} w={0.3203} />
-  <Layer src={frameCreateArt} x={0.1215} y={0.1255} w={0.2325} alt={alt} />
-  <Layer src={framePinkBlob} x={0.5687} y={0.5946} w={0.196} alt={alt} />
-  <Layer src={frameBlueBlob} x={0.0751} y={0.5006} w={0.1623} alt={alt} />
-  <Layer src={frameHearts} x={0.3065} y={0.553} w={0.1931} alt={alt} />
-  <Layer src={frameTropical} x={0.7356} y={0.1009} w={0.1878} alt={alt} />
+    <p
+      class="at motto lines"
+      style={place([0.0298, 0.01885, 0.1694, 0.0651, -10.55], [0.03, 0.1, 0.52, 0.3, -10.55])}
+    >
+      {site.portfolio.motto.map((line) => <span>{line}</span>)}
+    </p>
+  </div>
+
+  <div class="gallery" style={{ "--stars": `url("${starPattern.src}")` }} tabindex="0" aria-label="Portfolio photos, swipe to see more">
+    {
+      site.portfolio.items.map((item, i) => (
+        <Framed
+          item={item}
+          class="at"
+          sizes={`${MOBILE_QUERY} 60vw, 26vw`}
+          style={{ ...place(desktopSlots[i % desktopSlots.length]), "--tilt": tilts[i % tilts.length] }}
+        />
+      ))
+    }
+  </div>
+
+  <p class="hint d-hide" aria-hidden="true">swipe for more →</p>
 </Stage>
 
 <style>
+  .head,
+  .gallery {
+    display: contents;
+  }
+
   .heading {
     display: grid;
     place-items: center;
@@ -81,5 +103,74 @@ const alt = "Portfolio haircut";
     color: var(--aqua);
     filter: drop-shadow(0 0 0.02cqi rgb(0 125 129 / 0.95)) drop-shadow(0 0 0.09cqi rgb(0 125 129 / 0.75))
       drop-shadow(0 0 0.28cqi rgb(0 125 129 / 0.44));
+  }
+
+  @media (max-width: 759.98px) {
+    .head {
+      display: block;
+      position: relative;
+      aspect-ratio: 1 / 0.55;
+    }
+
+    .heading {
+      font-size: 8.6cqi;
+      text-shadow: 0.45cqi 0.45cqi 0 var(--maroon);
+    }
+
+    .motto {
+      font-size: 3.4cqi;
+      line-height: 4.6cqi;
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-rows: repeat(2, auto);
+      grid-auto-flow: column;
+      grid-auto-columns: max-content;
+      align-items: center;
+      gap: 7vw 6vw;
+      padding: 4vw 26vw 8vw 7vw;
+      overflow-x: auto;
+      overscroll-behavior-x: contain;
+      scroll-snap-type: x mandatory;
+      scroll-padding-inline: 7vw;
+      scrollbar-width: none;
+      background: var(--stars) 0 0 / 100vw auto repeat-x local;
+    }
+
+    .gallery::-webkit-scrollbar {
+      display: none;
+    }
+
+    .gallery:focus-visible {
+      outline: 2px solid var(--teal-light);
+      outline-offset: -4px;
+    }
+
+    .gallery :global(.framed) {
+      position: relative;
+      left: auto;
+      top: auto;
+      width: auto;
+      height: 46vw;
+      rotate: var(--tilt);
+    }
+
+    .gallery :global(.framed:nth-child(odd)) {
+      scroll-snap-align: start;
+    }
+
+    .gallery :global(.framed:nth-child(even)) {
+      translate: 18vw 0;
+    }
+
+    .hint {
+      margin: -4vw 0 0;
+      padding-bottom: 6vw;
+      text-align: center;
+      font-size: 3.4cqi;
+      color: var(--teal-light);
+      filter: drop-shadow(0 0 0.5cqi rgb(25 182 174 / 0.6));
+    }
   }
 </style>
