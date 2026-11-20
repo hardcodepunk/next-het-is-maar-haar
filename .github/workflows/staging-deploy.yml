@@ -1,0 +1,45 @@
+name: Deploy staging
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: hetismaarhaar-staging
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version: '24'
+          cache: npm
+      - run: npm ci --ignore-scripts
+      - run: npm run build
+      - name: Package static files
+        working-directory: dist
+        run: zip -q -r -X "$RUNNER_TEMP/staging.zip" .
+      - name: Publish to TransIP
+        env:
+          DEPLOY_PASSWORD: ${{ secrets.STAGING_DEPLOY_PASSWORD }}
+          DEPLOY_COMMIT: ${{ github.sha }}
+          DEPLOY_RUN: ${{ github.run_id }}
+        run: |
+          test -n "$DEPLOY_PASSWORD"
+          printf 'user = "staging-deploy:%s"\n' "$DEPLOY_PASSWORD" |
+            curl --config - --proto '=https' --silent --show-error --fail-with-body \
+              --retry 3 --retry-delay 10 --max-time 120 \
+              --header 'Content-Type: application/zip' \
+              --header "X-Deploy-Commit: $DEPLOY_COMMIT" \
+              --header "X-Deploy-Run: $DEPLOY_RUN" \
+              --data-binary "@$RUNNER_TEMP/staging.zip" \
+              https://hetismaarhaar.hardcodepunk.be/_staging-deploy.php
