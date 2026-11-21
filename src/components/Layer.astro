@@ -9,22 +9,22 @@ interface Props {
   w: number;
   alt?: string;
   priority?: boolean;
-  class?: string;
 }
 
-const { src, x, y, w, alt = "", priority = false, class: className } = Astro.props;
+const { src, x, y, w, alt = "", priority = false } = Astro.props;
 
-const widths = [...new Set([0.25, 0.5, 0.75, 1].map((f) => Math.round(src.width * f)))];
+// Scale the candidates to the layer's share of the viewport. Keep the original for high-density displays.
+const widths = [720, 1440, 2160].map((viewportWidth) => Math.ceil(viewportWidth * w));
+widths.push(src.width);
 ---
 
 <Image
   src={src}
   alt={alt}
   widths={widths}
-  sizes={`${(w * 100).toFixed(1)}vw`}
-  loading={priority ? "eager" : "lazy"}
-  fetchpriority={priority ? "high" : "auto"}
-  class:list={["at", "layer", className]}
+  sizes={`${(w * 100).toFixed(2)}vw`}
+  priority={priority}
+  class="at layer"
   style={{ left: `${x * 100}%`, top: `${y * 100}%`, width: `${w * 100}%` }}
 />
 
