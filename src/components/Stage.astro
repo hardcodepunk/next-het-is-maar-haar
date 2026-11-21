@@ -1,14 +1,12 @@
 ---
 import type { HTMLAttributes } from "astro/types";
 
-type Props = HTMLAttributes<"section"> & {
-  background?: string;
-};
+type Props = HTMLAttributes<"section">;
 
-const { background, class: className, ...rest } = Astro.props;
+const { class: className, ...attrs } = Astro.props;
 ---
 
-<section class:list={["stage", className]} style={background ? { background } : undefined} {...rest}>
+<section class:list={["stage", className]} {...attrs}>
   <slot />
 </section>
 

@@ -7,7 +7,6 @@
   --teal-pale: #7ed7d2;
   --cyan: #5ce1e6;
   --aqua: #57d0d4;
-  --pink: #ff9dc0;
   --maroon: #812c2c;
   --deep-teal: #006f73;
 
@@ -58,13 +57,4 @@ a {
 
 .lines > span {
   display: block;
-}
-
-.visually-hidden {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  overflow: hidden;
-  clip-path: inset(50%);
-  white-space: nowrap;
 }
