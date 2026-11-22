@@ -17,17 +17,27 @@ import youAreAStar from "../../assets/home/you-are-a-star.webp";
 const indents = [0, 7, 0, 5, 0];
 ---
 
-<Stage id="home" aria-label="Home">
-  <Layer src={glowHeartBlue} x={0.1637} y={0.0385} w={0.6421} priority />
-  <Layer src={glowHeartPink} x={0.2279} y={0.111} w={0.5443} priority />
-  <Layer src={hairclips} x={0.0411} y={0.1047} w={0.141} />
-  <Layer src={butterflies} x={0.8689} y={0.4861} w={0.1293} />
-  <Layer src={flipPhone} x={0.0595} y={0.6406} w={0.1067} />
-  <Layer src={heroHeart} x={0.3388} y={0.2736} w={0.3228} alt="Smiling client with freshly cut hair" priority />
+<Stage id="home" aria-label="Home" mobileRatio={0.5} bg={site.backgrounds.home}>
+  <Layer src={glowHeartBlue} x={0.1637} y={0.0385} w={0.6421} m={[-0.15, 0.14, 1.3]} priority />
+  <Layer src={glowHeartPink} x={0.2279} y={0.111} w={0.5443} m={[-0.02, 0.19, 1.04]} priority />
+  <Layer src={hairclips} x={0.0411} y={0.1047} w={0.141} m={[0.06, 0.035, 0.32]} />
+  <Layer src={butterflies} x={0.8689} y={0.4861} w={0.1293} m={[0.66, 0.025, 0.3]} />
+  <Layer src={flipPhone} x={0.0595} y={0.6406} w={0.1067} m={[0.05, 0.7, 0.22]} />
+  <Layer
+    src={heroHeart}
+    x={0.3388}
+    y={0.2736}
+    w={0.3228}
+    m={[0.1, 0.38, 0.8]}
+    alt="Smiling client with freshly cut hair"
+    priority
+  />
 
-  <h1 class="at title" style={place(0.2027, 0.0488, 0.5947, 0.1148)}>{site.title.toUpperCase()}</h1>
+  <h1 class="at title" style={place([0.2027, 0.0488, 0.5947, 0.1148], [0.04, 0.19, 0.92, 0.14])}>
+    {site.title.toUpperCase()}
+  </h1>
 
-  <nav class="at nav" style={place(0.8193, 0.1786, 0.1622, 0.4619)} aria-label="Main">
+  <nav class="at nav m-hide" style={place([0.8193, 0.1786, 0.1622, 0.4619])} aria-label="Main">
     <ul>
       {
         site.nav.map((link, i) => (
@@ -42,17 +52,24 @@ const indents = [0, 7, 0, 5, 0];
     </ul>
   </nav>
 
-  <Layer src={smallHeart} x={0.0645} y={0.4439} w={0.1286} alt="Client laughing during a haircut" />
+  <Layer
+    src={smallHeart}
+    x={0.0645}
+    y={0.4439}
+    w={0.1286}
+    m={[0.62, 0.69, 0.34]}
+    alt="Client laughing during a haircut"
+  />
 
-  <p class="at community lines" style={place(0.5535, 0.8424, 0.4098, 0.0987)}>
+  <p class="at community lines" style={place([0.5535, 0.8424, 0.4098, 0.0987], [0.03, 0.9, 0.94, 0.08])}>
     {site.community.map((line) => <span>{line}</span>)}
   </p>
 
-  <p class="at tagline" style={place(0.3103, 0.2738, 0.3794, 0.0467)}>
+  <p class="at tagline" style={place([0.3103, 0.2738, 0.3794, 0.0467], [0.04, 0.335, 0.92, 0.035])}>
     {site.tagline}<span class="asterisk">*</span>
   </p>
 
-  <div class="at contact" style={place(0.1423, 0.6305, 0.1121, 0.1807)}>
+  <div id="contact" class="at contact" style={place([0.1423, 0.6305, 0.1121, 0.1807], [0.26, 0.735, 0.38, 0.13])}>
     <h2 class="contact-title">{site.contactTitle}</h2>
     <ul>
       {
@@ -65,13 +82,14 @@ const indents = [0, 7, 0, 5, 0];
     </ul>
   </div>
 
-  <Layer src={youAreAStar} x={0.0712} y={0.0555} w={0.1123} alt="You are a star" />
+  <Layer src={youAreAStar} x={0.0712} y={0.0555} w={0.1123} m={[0.03, 0.015, 0.36]} alt="You are a star" />
 </Stage>
 
 <style>
   .title {
     display: grid;
     place-items: center;
+    text-align: center;
     font-family: var(--font-display);
     font-weight: 600;
     font-size: 5.4cqi;
@@ -140,7 +158,6 @@ const indents = [0, 7, 0, 5, 0];
     font: inherit;
   }
 
-
   .community {
     display: grid;
     align-content: center;
@@ -151,5 +168,31 @@ const indents = [0, 7, 0, 5, 0];
     color: var(--teal-light);
     filter: drop-shadow(0 0 0.023cqi rgb(4 182 173 / 0.95)) drop-shadow(0 0 0.12cqi rgb(25 182 174 / 0.75))
       drop-shadow(0 0 0.35cqi rgb(25 182 174 / 0.44));
+  }
+
+  @media (max-width: 759.98px) {
+    .title {
+      font-size: 13cqi;
+      line-height: 1.05;
+      white-space: normal;
+      text-wrap: balance;
+      -webkit-text-stroke-width: 0.48cqi;
+      text-shadow: 0.58cqi 0.58cqi 0 var(--teal-pale);
+    }
+
+    .tagline {
+      font-size: 5.2cqi;
+    }
+
+    .contact {
+      font-size: 4.8cqi;
+      line-height: 6.4cqi;
+    }
+
+    .community {
+      font-size: 3.1cqi;
+      line-height: 4.6cqi;
+      white-space: normal;
+    }
   }
 </style>

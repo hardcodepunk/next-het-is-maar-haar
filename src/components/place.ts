@@ -1,7 +1,18 @@
-export const place = (x: number, y: number, w: number, h: number, rotate = 0) => ({
-  left: `${x * 100}%`,
-  top: `${y * 100}%`,
-  width: `${w * 100}%`,
-  height: `${h * 100}%`,
-  ...(rotate ? { transform: `rotate(${rotate}deg)` } : {}),
+export const MOBILE_QUERY = "(max-width: 759.98px)";
+
+export type Box = [x: number, y: number, w: number, h?: number, rotate?: number];
+
+const pct = (v: number) => `${+(v * 100).toFixed(3)}%`;
+
+const toVars = (prefix: string, [x, y, w, h, rotate]: Box) => ({
+  [`--${prefix}x`]: pct(x),
+  [`--${prefix}y`]: pct(y),
+  [`--${prefix}w`]: pct(w),
+  ...(h !== undefined ? { [`--${prefix}h`]: pct(h) } : {}),
+  ...(rotate ? { [`--${prefix}r`]: `${rotate}deg` } : {}),
+});
+
+export const place = (desktop: Box, mobile?: Box) => ({
+  ...toVars("", desktop),
+  ...(mobile ? toVars("m", mobile) : {}),
 });

@@ -15,17 +15,24 @@ One-page site for freelance hairdresser "Het is maar haar", rebuilt from the Can
 
 ```
 src/
-  data/site.ts              all copy, links and prices (to be replaced by Sanity)
+  data/site.ts              all copy, links, prices and portfolio items (to be replaced by Sanity)
+  data/frames.ts            fixed set of hand-drawn frames with their photo window
   layouts/Base.astro        html shell, fonts, global css
   components/
-    Stage.astro             16:9 canvas section, scales with viewport width
-    Layer.astro             absolutely positioned responsive image
+    Stage.astro             canvas section, 16:9 on desktop, own ratio on mobile
+    Layer.astro             absolutely positioned responsive image, optional mobile position
+    Framed.astro            portfolio photo masked into a frame
+    PillBar.astro           fixed bottom nav on mobile
     sections/               Home, Portfolio, Prices
   assets/                   images exported from the Canva design
 docs/design/                reference screenshots of the Canva pages
 ```
 
-Sections are anchored (`#home`, `#portfolio`, `#prices`) and the nav scrolls to them.
+Sections are anchored (`#home`, `#portfolio`, `#prices`, `#contact`) and the nav scrolls to them.
+
+Below 760px each section switches to a portrait layout: positions come from the `m` prop on `Layer` or the second box passed to `place()`. The portfolio becomes a two-row swipeable gallery and a pill bar replaces the in-hero nav.
+
+A portfolio item is a photo plus a frame key (`site.portfolio.items`). Optional `position` and `zoom` control the crop inside the frame.
 
 ## Development
 

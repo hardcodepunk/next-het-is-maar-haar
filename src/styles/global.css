@@ -23,7 +23,11 @@
 }
 
 html {
+  --bg-from: var(--magenta);
+  --bg-to: var(--magenta);
+  --bg-t: 0%;
   background: var(--magenta);
+  background: color-mix(in oklab, var(--bg-from), var(--bg-to) var(--bg-t));
   scroll-behavior: smooth;
 }
 
@@ -56,8 +60,48 @@ a {
   color: inherit;
 }
 
+.at {
+  position: absolute;
+  left: var(--x);
+  top: var(--y);
+  width: var(--w);
+  height: var(--h, auto);
+  rotate: var(--r, 0deg);
+}
+
 .lines > span {
   display: block;
+}
+
+@media (max-width: 759.98px) {
+  body {
+    padding-bottom: calc(76px + env(safe-area-inset-bottom));
+  }
+
+  .at {
+    left: var(--mx, var(--x));
+    top: var(--my, var(--y));
+    width: var(--mw, var(--w));
+    height: var(--mh, var(--h, auto));
+    rotate: var(--mr, var(--r, 0deg));
+  }
+
+  .m-hide {
+    display: none !important;
+  }
+
+  .m-cover {
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+@media (min-width: 760px) {
+  .d-hide {
+    display: none !important;
+  }
 }
 
 .visually-hidden {
